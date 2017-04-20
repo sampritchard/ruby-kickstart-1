@@ -1,7 +1,7 @@
-# Write a function named mod_three which takes an array of numbers, 
+# Write a function named mod_three which takes an array of numbers,
 # and return a new array consisting of their remainder when divided by three.
 # Exclude any numbers which are actually dividible by three.
-# 
+#
 # EXAMPLES:
 # mod_three [0]  # => []
 # mod_three [1]  # => [1]
@@ -13,3 +13,9 @@
 # mod_three [7]  # => [1]
 #
 # mod_three [0,1,2,3,4,5,6,7] # => [1, 2, 1, 2, 1]
+
+def mod_three(array)
+  div_three = array.map {|n| n%3}
+  new_array = div_three.delete_if {|n| n<1}
+  return new_array
+end
