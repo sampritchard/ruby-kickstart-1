@@ -3,3 +3,7 @@
 #
 # reverse_map(1, 2, 3) { |i| i * 2 }      # => [6, 4, 2]
 
+#&block (or anything) makes block a Proc object
+def reverse_map(*p, &block) #*anything means you can call the method with any number of arguments
+  p.reverse.map(&block)
+end
