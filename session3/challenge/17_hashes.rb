@@ -7,3 +7,7 @@
 #
 # print_list_in_reverse head   # >> "1\n2\n"
 
+def print_list_in_reverse(list)
+  print_list_in_reverse(list[:next]) if list && list[:next]
+  print "#{list[:data]}\n" if list
+end
