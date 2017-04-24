@@ -21,11 +21,29 @@
 # problem_14 2,   5, 6, 45, 99, 13, 5, 6,  :problem => :same_ends    # => true
 # problem_14 3,   5, 6, 45, 99, 13, 5, 6,  :problem => :same_ends    # => false
 
-def problem_14
+#struggled with this problem and looked at solution
+#need to read through it to thoroughly understand
+def problem_14(*params)#method which has any number of params passed to it
+  problem = params.pop[:problem] if params.last.is_a? Hash #pop removes the :problem symbol from the passed in param if last is a Hash
+  problem ||= :count_clumps #as long as one is true, problem will be true
+
+  return count_clumps(*params) if problem == :count_clumps
+  return same_ends(*params)    if problem == :same_ends
 end
 
-def same_ends
+def count_clumps(*numbers) 
+  clumps     = 0
+  previous   = nil
+  two_before = nil
+
+  numbers.each do |number|
+    clumps += 1 if (previous == number) && (previous != two_before)
+    two_before = previous
+    previous   = number
+  end
+  clumps
 end
 
-def count_clumps
+def same_ends(n, *params)
+  params[0, n] == params[-n, n]
 end
