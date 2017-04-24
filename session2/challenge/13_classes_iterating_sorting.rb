@@ -63,4 +63,46 @@
 
 # date docs are at: http://ruby-doc.org/core/classes/Date.html
 # don't spend too much time worrying about them :)
+
+
 require 'date'
+
+class User
+  attr_accessor :username, :blogs#setters and getters of username and blogs in the User class
+
+  def initialize(username) #initalize the username with self.
+    self.username = username
+    self.blogs    = []
+  end
+
+  def add_blog(date, text) #create a new method with date and text added in to be ordered
+    added_blog = Blog.new(date, self, text) #use the Blog class which will be created and pass in date self and text
+    blogs << added_blog #added_blog gets passed into the blogs variable initalized above
+    self.blogs = blogs.sort_by { |blog| blog.date }.reverse #sort the blogs by date
+    added_blog
+  end
+end
+
+class Blog #create the Blog class
+  attr_accessor :date, :user, :text #setters and getters of date user and text
+
+  def initialize(date, user, text) #initalize them all for user input
+    self.date = date
+    self.user = user
+    self.text = text
+  end
+
+  def summary
+    text.split[0..9].join(' ') #summary method, only shows the first 9 words
+  end
+
+  def entry
+    "#{user.username} #{date}\n#{text}" #
+  end
+
+  def ==(other)
+      date == other.date &&
+      user == other.user &&
+      text == other.text
+  end
+end
