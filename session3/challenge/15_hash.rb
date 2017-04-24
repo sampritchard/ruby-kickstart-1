@@ -38,3 +38,16 @@
 # middle head                        # => 3
 # head = {:data => 6, :next => head}
 # middle head                        # => 3
+
+
+#i find lists quite hard and they seem important for interview questions
+#this logic is from the solution, I comment my understanding of it and hopefully be able to use that in the next challenges
+def list_size(list) #declare the method list_size which has one parameter "list".
+  return 0 unless list #returns 0 (if nothing passed in) unless a list has been passed in
+  1 + list_size(list[:next]) #1+ the hash list passed in next
+end
+
+def middle(list, distance=list_size(list)/2) #a method to find the middle of said list
+  return list[:data] if distance == 0 #distance is 0, it returns data as thats the first point
+  middle list[:next], (distance - 1)
+end
