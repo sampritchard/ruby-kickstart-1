@@ -21,8 +21,31 @@
 # f.to_f               # => 0.5
 
 class Fraction
-  def gcd(a,b)
+  #setting and getting the two integers
+  attr_accessor :numerator, :denominator
+
+  def initialize(numerator,denominator)#allows the user to change these values
+    self.numerator, self.denominator = numerator, denominator #why use self.?
+  end
+
+  def to_s #to_s method calls the values the users puts in and equals numerator/denominator
+    "#{numerator}/#{denominator}"
+  end
+
+  def gcd(a,b)#pre-built method for greatest common divisor
     return a if b == 0
     gcd(b, a%b)
   end
+
+  def lowest
+  divisor = gcd(numerator, denominator) #uses greatest common divider method to the find the smallest fraction
+  Fraction.new(numerator/divisor, denominator/divisor)
+  end
+
+  #error message saying Fraction can be converted to float and to_f
+  def to_f
+    numerator / denominator.to_f
+  end
+
+
 end
