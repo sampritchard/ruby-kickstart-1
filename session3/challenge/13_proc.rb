@@ -52,5 +52,14 @@
 #   end
 # end       # => ["a", "m", "r", 1, 3, 4, 9, 2.5, 9.0, 25.8]
 
-def your_sort
-end
+#used Chris Pine;s book but could not figure a solution; couldnt figure out the block part of it to work in this one
+def your_sort(new_array, &block) #pass in the new_array which the user gives and if they give block to sort by
+  block ||= Proc.new {|a,b| a<=>b} #if block == nil (nothing given by user) default sort method is used using Proc.new
+
+  new_array.each_index do |index1| #iterate over each index
+    new_array.each_index do |index2|
+      order = block.call(new_array[index1], new_array[index2]) #call the block to decide how to order then use index 1 and 2
+      new_array[index1], new_array[index2] = new_array[index2], new_array[index1] if order < 0
+    end
+  end
+  end
