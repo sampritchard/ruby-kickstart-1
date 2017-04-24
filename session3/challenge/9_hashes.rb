@@ -28,5 +28,27 @@
 # shared [1,2,:c], ['a','b',:c]      # => [{1=>[true, nil], 2=>[true, nil], :c=>[true, true], "a"=>[nil, true], "b"=>[nil, true]}, [:c]]
 # shared [1,2,3], [3,2,1]            # => [{1=>[true, true], 2=>[true, true], 3=>[true, true]}, [1, 2, 3]]
 
+#again, found this one really tough and used the solution to solve
+#my unerstandings in comments in the code
+
 def shared(a, b)
+
+  union = {} #is the hash to be returned
+
+  #starts the iteration on the first array - a
+  a.each do |element| #on each element in the array
+    union[element] ||= [nil, nil] #hash[chosen element] ||= meaning if union[element is false], set [nil,nil]
+    union[element][0] = true #hash[chosen element]; at index 0
+  end
+
+  b.each do |element|
+    union[element] ||= [nil, nil] #same as above but onto the second array
+    union[element][1] = true #and looking at index 1 not 0
+  end
+
+  #the new hash union is selecting the value that is true,true and the key
+  result = union.select { |key, value| value == [true, true] }.map { |key, value| key }
+
+  return union, result.sort #has to sort the result so we return the union and the sorted result from above
+
 end
