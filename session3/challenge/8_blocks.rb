@@ -6,7 +6,7 @@
 # EXAMPLE:
 #
 # artist = Person.new :name => 'Prince' do |person|
-#   person.age   = 47
+#   person.age   = 47age
 #   person.quote = "Why don't you purify yourself in the waters of Lake Minnetonka?"
 # end
 #
@@ -26,14 +26,21 @@
 
 
 class Person
-  attr_accessor :name
+  attr_accessor :name, :age, :quote #getters and setters for name age and uote
 
-  def initialize(&initializer)
-    @initializer = initializer
-    initializer.call self
+#passing a reference to the block to a method.
+  def initialize(hash, &block)
+    @name = hash[:name]
+    @age = hash[:age]
+    @quote = hash[:quote]
+
+  if block
+    @block = block
+    block.call(self)
   end
+end
 
   def reinit
-    @initializer.call self
+    @block.call self
   end
 end
