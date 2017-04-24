@@ -30,5 +30,18 @@
 # end
 
 
-def array_init
+def array_init(default = 5, &block)#sets default parameter as 5. Need the block in there when called upon
+  #if a block is submitted
+  if block
+    #create a new Array called array which gets passed default value (either 5 or user input)
+    #then iterate that and call the block on each element in that array
+    array = Array.new(default) {|i| block.call i}
+    #if a block is not submitted
+  else
+    #passed a default value
+    array = Array.new(default)
+    #this array the arrays index needs to be times by 100 and returned as a string upto the default or user
+    array.each_with_index {|n,i| array[i] = (i*100).to_s}
+  end
+  array
 end
