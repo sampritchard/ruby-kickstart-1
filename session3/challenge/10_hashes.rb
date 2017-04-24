@@ -28,6 +28,18 @@
 #
 # create it from scratch :)
 
+#found very challenging and used solution again
+def pathify(table=Hash.new) #passed the hash table
+  #this is iterating over the hash table and putting a / before path if it is an Array
+  return table.map {|path| "/" + path} if table.is_a? Array
 
-def pathify
+  to_return = []
+  table.each do |parent, child| #iterate over the given hash
+    parent = "/" + parent #parent path begins with a /
+    child_paths = pathify child #calling pathify converts the child into paths
+    child_paths.each do |child_path| #joining the child paths to its parent paths
+      to_return << (parent + child_path)
+    end
+  end
+  to_return
 end
